@@ -29,6 +29,9 @@
    | general rules for a kind of work | `playbooks/<name>.md` | yes |
    | narrow task in a separate context | `daemons/<name>/AGENTS.md` | charter only |
    | half-built agent / spell / playbook, not wired in yet | `laboratory/drafts/<name>/` | yes (except `*.local.*`) |
+   | daemon / domain as its own git repo | module, via `arsenal/spiritus-module-manager/` | its own repo; listed in `catalog.json` if standard |
+   | Spiritus's own tool: launcher, custom MCP, library, script | `arsenal/<name>/` | yes |
+   | a new requirement of the machine | a check in `arsenal/spiritus-setup/doctor.py` + `README.md` | yes |
    | shared static resource (image, template, layout) | `assets/` | yes |
    | idea / to-do / experiment about Spiritus itself | `laboratory/` | yes (except `*.local.*`) |
 

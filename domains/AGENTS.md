@@ -14,6 +14,11 @@ its own data, rules and processes.
   every domain's charter and data stay out of git. Generic rules about
   domains belong here, never in a domain charter.
 
+A domain folder is either a **local folder** (personal, never leaves this
+machine) or a **module** — its own git repo I can share, installed by
+`arsenal/spiritus-module-manager/`. A module domain keeps rules, templates
+and scripts in its repo and my data in folders its own `.gitignore` excludes.
+
 ## Domain anatomy
 
 ```
@@ -35,7 +40,8 @@ domains/<name>/
 
 Spiritus may propose a domain for recurring work that fits no registered
 one, but creates it only after my "yes". Then: the folder with its charter
-→ a row in the registry, saying *when* to enter it. Registry format:
+→ a row in the registry, saying *when* to enter it (a module domain gets its
+row from the module manager). Registry format:
 
 ```
 # domains — my registry

@@ -1,0 +1,44 @@
+{
+  "tasks": {
+    "doctor": {
+      "desc": "check this machine has what Spiritus needs (changes nothing)",
+      "run": ["{python}", "arsenal/spiritus-setup/doctor.py"]
+    },
+    "bootstrap": {
+      "desc": "re-run setup: requirements, `spiritus` command, PATH, modules: [--yes]",
+      "run": ["{python}", "arsenal/spiritus-setup/bootstrap.py"]
+    },
+    "modules": {
+      "desc": "module manager, any command: modules <command> [args]",
+      "run": ["{python}", "arsenal/spiritus-module-manager/modules.py"]
+    },
+    "modules:list": {
+      "desc": "catalog + my modules, installed or not",
+      "run": ["{python}", "arsenal/spiritus-module-manager/modules.py", "list"]
+    },
+    "modules:install": {
+      "desc": "install a standard module from the catalog: <name> [--ref R]",
+      "run": ["{python}", "arsenal/spiritus-module-manager/modules.py", "install"]
+    },
+    "modules:add": {
+      "desc": "add my own module by git URL: <url> --kind daemon|domain [--name N] [--ref R]",
+      "run": ["{python}", "arsenal/spiritus-module-manager/modules.py", "add"]
+    },
+    "modules:sync": {
+      "desc": "clone every module from modules.local.json that is missing",
+      "run": ["{python}", "arsenal/spiritus-module-manager/modules.py", "sync"]
+    },
+    "modules:update": {
+      "desc": "pull one / all modules, refresh their registry rows: [name]",
+      "run": ["{python}", "arsenal/spiritus-module-manager/modules.py", "update"]
+    },
+    "modules:status": {
+      "desc": "every daemon / domain folder and its git state: [--fetch]",
+      "run": ["{python}", "arsenal/spiritus-module-manager/modules.py", "status"]
+    },
+    "modules:remove": {
+      "desc": "delete a module folder, refuses to lose work: <name> [--force]",
+      "run": ["{python}", "arsenal/spiritus-module-manager/modules.py", "remove"]
+    }
+  }
+}

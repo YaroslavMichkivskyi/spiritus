@@ -8,6 +8,7 @@ Spiritus itself. Tracked in git (drafts too), except `*.local.*` files.
 
 | File | What |
 |---|---|
+| `improvements-to-do.md` | planned improvements to Spiritus, **in the order they will be done**; done items are removed |
 | `drafts/` | half-built agents / spells / playbooks not ready to be wired in — one folder per draft, listed below |
 
 ## Drafts — `drafts/<name>/`

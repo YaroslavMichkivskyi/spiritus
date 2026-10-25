@@ -10,6 +10,10 @@ services — only Spiritus does, through the approval gate.
   summon each. Personal, gitignored, always in context. Missing → no daemons
   yet. A daemon folder not in my registry is never summoned.
 
+A daemon folder is either **in the platform repo** (tracked here) or a
+**module** — its own git repo (standard from the catalog, or my private one)
+installed by `arsenal/spiritus-module-manager/`. Both work the same way.
+
 ## Daemon anatomy
 
 ```
@@ -46,6 +50,9 @@ until I ask to wire them in.
 - Names — plain English, kebab-case, saying what the daemon does (`cv-maker`, `mail-triage`…).
 - Imported agents (e.g. from a friend) are rewritten into a charter: keep the
   rules, drop the other person's data, history and hardcoded paths.
-- A daemon's space is local, only `AGENTS.md` goes to git (see
+- In-platform daemon: its space is local, only `AGENTS.md` goes to git (see
   `.gitignore`); shareable code is opened up there explicitly, one exception
   per daemon.
+- Module daemon: install / update / remove only through the module manager
+  (it keeps the registry row and git excludes in sync); its charter starts
+  with the frontmatter the manager reads.
