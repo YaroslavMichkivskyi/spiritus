@@ -1,0 +1,40 @@
+# secrets: filled-in MCP config, env vars, personal overrides
+.mcp.json
+.claude/settings.local.json
+.env
+
+# personal notes in the repo root and *.local.* files
+/*.txt
+*.local.*
+
+# personal VS Code favorites list (Favorites extension, saveSeparated)
+.vscfavoriterc
+
+# per-user registries: what *I* have / use in each realm — never shared,
+# so one user's additions don't conflict with or bloat anyone else's context
+registry.md
+
+# personal profile: only the generic index is shareable, the scrolls are personal
+librarium/**
+!librarium/AGENTS.md
+!librarium/CLAUDE.md
+
+# domains: each user has their own set — every domain's charter and data are
+# personal; only the generic index is shareable
+domains/**
+!domains/AGENTS.md
+!domains/CLAUDE.md
+
+# daemons: only the charters are shareable, their workspace is local;
+# shareable code is opened up per daemon with an explicit exception.
+# Match the contents, not the daemon folders themselves: a module daemon's
+# folder is hidden by .git/info/exclude, which a `!daemons/*/` here would override
+daemons/*/*
+!daemons/*/AGENTS.md
+
+# Python / Node build artefacts anywhere
+__pycache__/
+*.egg-info/
+build/
+.venv/
+node_modules/
