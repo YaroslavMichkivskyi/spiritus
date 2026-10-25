@@ -11,6 +11,7 @@ instructions about my life — tracked in git, shareable.
 | `spiritus-cli/` | the `spiritus` command: `spiritus run <task>` runs a task from root `tasks.json` from any folder | running any tool here by hand; adding a shortcut for a new tool |
 | `spiritus-setup/` | `bootstrap.py` (first-time setup: requirements, `spiritus` command, PATH, modules) and `doctor.py` (checks the machine) | setting Spiritus up on a machine, something "doesn't work" and the environment may be the cause |
 | `spiritus-module-manager/` | installs / updates / removes daemons and domains kept in their own git repos; keeps registries and git excludes in sync | adding a standard or private daemon / domain from a git URL, updating them, checking their git state |
+| `telegram-channel/` | launcher that starts a Spiritus session reachable from a Telegram bot | I want to talk to Spiritus from my phone |
 
 ## Running from the repo root
 

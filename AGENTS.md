@@ -44,7 +44,7 @@ Other root folders — their index is **not** loaded up front, open it when need
 
 | Folder | What | Open when |
 |---|---|---|
-| `arsenal/` | Spiritus's own tools: setup (`bootstrap.py`, doctor), module manager, libraries, scripts; root `tasks.json` holds shortcuts to them (`spiritus run <task>`) | setting up a machine, installing / updating a daemon or domain from git, building or using a custom tool |
+| `arsenal/` | Spiritus's own tools: setup (`bootstrap.py`, doctor), module manager, launchers (Telegram), libraries, scripts; root `tasks.json` holds shortcuts to them (`spiritus run <task>`) | setting up a machine, installing / updating a daemon or domain from git, launching Spiritus in a special mode, building or using a custom tool |
 | `assets/` | shared static resources: avatar, templates, report layouts | a task needs an image / template, or a new one is added |
 | `laboratory/` | Spiritus's own development: improvement to-do, ideas, `drafts/` of half-built agents | I ask about plans / ideas / drafts, or Spiritus itself is being changed |
 
