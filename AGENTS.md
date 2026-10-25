@@ -44,7 +44,7 @@ Other root folders — their index is **not** loaded up front, open it when need
 
 | Folder | What | Open when |
 |---|---|---|
-| `arsenal/` | Spiritus's own tools: setup (`bootstrap.py`, doctor), module manager, launchers (Telegram), libraries, scripts; root `tasks.json` holds shortcuts to them (`spiritus run <task>`) | setting up a machine, installing / updating a daemon or domain from git, launching Spiritus in a special mode, building or using a custom tool |
+| `arsenal/` | Spiritus's own tools: setup (`bootstrap.py`, doctor), module manager, catalog of MCP servers, launchers (Telegram), libraries, scripts; root `tasks.json` holds shortcuts to them (`spiritus run <task>`) | setting up a machine, connecting a service, installing / updating a daemon or domain from git, launching Spiritus in a special mode, building or using a custom tool |
 | `assets/` | shared static resources: avatar, templates, report layouts | a task needs an image / template, or a new one is added |
 | `laboratory/` | Spiritus's own development: improvement to-do, ideas, `drafts/` of half-built agents | I ask about plans / ideas / drafts, or Spiritus itself is being changed |
 
@@ -86,6 +86,17 @@ work on **Windows, macOS and Linux** alike.
 - Commands in instructions are portable (`git`, `python`, `npx`, `code`); a
   command that differs per OS is given for each OS.
 - At runtime use the shell of the current OS; never assume PowerShell or bash.
+
+## External services
+
+All optional — Spiritus works with none. They are MCP servers (plus the
+runtime's browser extension), connected through core spell `spells/mcp-setup.md`.
+- Connected on this machine, with which accounts → `librarium/services.md`.
+- Before the first use of a service in a session → read its file in
+  `arsenal/mcp-servers/` and follow its **Rules**.
+- A task needs a service that isn't connected (or failed to start) → say so,
+  offer a workaround (web fetch, a manual step) or `mcp-setup`; never guess
+  that it's unconfigured or pretend it worked.
 
 ## Rules
 

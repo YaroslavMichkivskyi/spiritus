@@ -15,6 +15,7 @@ Spell, playbook or daemon?
 
   | Spell | Cast when |
   |---|---|
+  | `mcp-setup.md` | I want to connect an external service (mail, calendar, GitHub, LinkedIn, Blender, browser…), or a task needs a server that isn't connected (offer it) |
   | `create-domain.md` | I ask to create a new domain ("создай домен X"), or recurring work fits no registered domain (propose first) |
 
 - **Registry** — `spells/registry.md`: the other spells I use and when to
