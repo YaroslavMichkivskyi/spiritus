@@ -48,6 +48,13 @@ claude                     # или codex — «настрой меня»
 
 ## Состояние
 
-- 2026-10-24: шаги 1–7 сделаны (в диффе, не закоммичены). bootstrap и doctor проверены на Windows
-  (реальный запуск, повторный запуск, ветка «папки нет в PATH»); macOS / Linux не проверены.
-- Осталось: шаг 8 (чистая машина, macOS / Linux), коммит 7 (демоны → модули).
+- 2026-10-24: шаги 1–7 сделаны. bootstrap и doctor проверены на Windows
+  (реальный запуск, повторный запуск, ветка «папки нет в PATH»).
+- 2026-10-25: коммиты 1–6 сделаны, каждый проверен в чистом клоне: Windows (подмененный HOME) и
+  Linux (Docker, `python:3.9-slim`, bash): bootstrap, PATH через rc-файл, CLI, менеджер модулей
+  (18 проверок), Telegram-лаунчеры, спеллы `create-domain` / `setup` / `mcp-setup` через `claude -p`.
+  Найдено и исправлено: `!daemons/**/` перебивал exclude модулей; EOFError на `NUL` в Windows;
+  `Path.write_text(newline=)` нет в Python 3.9.
+- 2026-10-25: коммит 7 сделан — `cv-maker`, `it-job-analyzer`, `it-job-searcher` вынесены в
+  приватные репо (github.com/YaroslavMichkivskyi/<name>), стоят через `modules:add`.
+- Осталось: macOS не проверен.

@@ -9,6 +9,8 @@
    -> `spiritus help <задача>`: описание задачи + `--help` самого инструмента
    -> подсказка при опечатке: «did you mean modules:list?» (difflib)
    -> позже: автодополнение в shell
+   -> Windows + Git Bash: `spiritus` не находится (bash не подставляет `.cmd`) — bootstrap кладет
+      рядом с `spiritus.cmd` еще sh-шим `spiritus`; doctor проверяет оба
 
 2. менеджер модулей: `modules:adopt <name> --url <url>` — взять под управление уже существующий
    локальный домен / демона (git init + push + запись в modules.local.json + exclude), без ручного
