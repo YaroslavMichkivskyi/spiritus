@@ -11,9 +11,15 @@ Spell, playbook or daemon?
 - Daemon (`daemons/`) — bulky work in a separate context that returns only a
   short result. A spell may summon a daemon as one step.
 
-- **Registry** — `spells/registry.md`: the spells I use and when to
-  cast each. Personal, gitignored, always in context. Missing → no spells
-  yet. A spell not in my registry is never cast.
+- **Core spells** — part of the platform, always active, no registry row needed:
+
+  | Spell | Cast when |
+  |---|---|
+  | `create-domain.md` | I ask to create a new domain ("создай домен X"), or recurring work fits no registered domain (propose first) |
+
+- **Registry** — `spells/registry.md`: the other spells I use and when to
+  cast each. Personal, gitignored, always in context. Missing → only the
+  core ones. A non-core spell not in my registry is never cast.
 
 ## Spell anatomy — `spells/<name>.md`
 
