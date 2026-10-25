@@ -3,6 +3,7 @@
 ## Cast when
 
 - I want to connect a service: "подключи почту / календарь / GitHub / LinkedIn / Blender / браузер".
+- `setup.md` step 6 → "yes".
 - A task needs a server that isn't connected → say so, offer this spell; cast after "yes".
 - Disconnecting a service or changing its account → the same steps in reverse.
 

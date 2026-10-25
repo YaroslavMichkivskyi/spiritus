@@ -142,7 +142,7 @@ def main():
     doctor.report([doctor.check_cli])
     print("\nnext:" if rest_ok else "\nnext (after fixing the FAIL lines):")
     print("  - open a new terminal in this folder")
-    print("  - start your agent there: `claude` or `codex`")
+    print("  - start your agent there (`claude` or `codex`) and say: \"set me up\"")
     print("  - check the machine any time: `spiritus run doctor`")
 
 

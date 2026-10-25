@@ -15,6 +15,7 @@ Spell, playbook or daemon?
 
   | Spell | Cast when |
   |---|---|
+  | `setup.md` | I say "set me up" / "настрой меня", or a session starts with no `librarium/registry.md` (offer it first); re-run to change my settings |
   | `mcp-setup.md` | I want to connect an external service (mail, calendar, GitHub, LinkedIn, Blender, browser…), or a task needs a server that isn't connected (offer it) |
   | `create-domain.md` | I ask to create a new domain ("создай домен X"), or recurring work fits no registered domain (propose first) |
 

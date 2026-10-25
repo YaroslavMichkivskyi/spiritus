@@ -1,6 +1,7 @@
 # spiritus-setup — get a machine ready for Spiritus
 
-The mechanical half of setup: requirements, the `spiritus` command, modules.
+The mechanical half of setup; the conversational half (profile, domains,
+services) is the core spell `spells/setup.md`.
 
 | File | What |
 |---|---|
@@ -19,7 +20,7 @@ The mechanical half of setup: requirements, the `spiritus` command, modules.
    in the registry; macOS / Linux — an `export PATH=…` line in the shell rc
    file (`~/.zshrc`, `~/.bashrc` / `~/.bash_profile`, else `~/.profile`).
 4. `arsenal/spiritus-module-manager/modules.local.json` exists → `modules sync`.
-5. Prints the next step: start the agent.
+5. Prints the next step: start the agent, say "set me up".
 
 Never installs software (git, Python, Node, runtimes) — it only says what's
 missing and points to `README.md`. `--yes` answers every question; without a

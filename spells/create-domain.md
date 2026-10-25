@@ -3,7 +3,7 @@
 ## Cast when
 
 - I ask to create / start / open a new domain ("создай домен X", "заведи
-  область для Y").
+  область для Y"), or `setup.md` hands over an area of my life.
 - Spiritus itself sees work that fits no registered domain and will recur —
   then propose the domain first, cast only after my "yes".
 - Not for a subfolder inside an existing domain — that's the domain charter's
