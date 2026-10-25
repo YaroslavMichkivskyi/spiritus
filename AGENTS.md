@@ -46,6 +46,7 @@ Other root folders — their index is **not** loaded up front, open it when need
 |---|---|---|
 | `arsenal/` | Spiritus's own tools: setup (`bootstrap.py`, doctor), module manager, catalog of MCP servers, launchers (Telegram), libraries, scripts; root `tasks.json` holds shortcuts to them (`spiritus run <task>`) | setting up a machine, connecting a service, installing / updating a daemon or domain from git, launching Spiritus in a special mode, building or using a custom tool |
 | `assets/` | shared static resources: avatar, templates, report layouts | a task needs an image / template, or a new one is added |
+| `docs/` | documentation for people: getting started, concepts, CLI, modules, services, troubleshooting (`README.md` links here) | I ask how something works / how to do X by hand, or a change alters behaviour a doc describes |
 | `laboratory/` | Spiritus's own development: improvement to-do, ideas, `drafts/` of half-built agents | I ask about plans / ideas / drafts, or Spiritus itself is being changed |
 
 Context loading — **layered, never read everything up front**:
@@ -62,7 +63,7 @@ Changing Spiritus itself (rules, indexes, new domain / daemon / spell /
 playbook / scroll, config) → follow `playbooks/self-update.md`.
 
 Naming: the top-level folders keep their own names (`librarium`, `daemons`,
-`domains`, `spells`, `playbooks`, `arsenal`, `assets`, `laboratory`); don't invent new
+`domains`, `spells`, `playbooks`, `arsenal`, `assets`, `docs`, `laboratory`); don't invent new
 Latin. Domains — one short English word (`career`, `study`); daemons, spells
 and playbooks — plain-English kebab-case saying what they do (`cv-maker`,
 `search-jobs`, `self-update`). Keep to it when creating new ones.

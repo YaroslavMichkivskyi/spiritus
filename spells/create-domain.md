@@ -69,7 +69,7 @@ Local file system, `git` (read-only commands), `spiritus run modules:list`.
 ## Limits
 
 - The domain is a **local folder**. Turning it into a shareable module (own
-  repo) is a separate step on my request — `arsenal/spiritus-module-manager/AGENTS.md`.
+  repo) is a separate step on my request — `docs/modules.md`.
 - No commit / push here.
 - No personal data in the charter beyond what the domain's rules need —
   facts about me stay in `librarium/`, the charter links to the scroll.

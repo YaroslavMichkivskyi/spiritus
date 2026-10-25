@@ -35,6 +35,6 @@ agent runtime, the `spiritus` command. Warnings: git identity, Node.js.
 ## Rules
 
 - A new requirement → a check in `doctor.py` (+ a row in `README.md`
-  Requirements).
+  Requirements and `docs/getting-started.md`).
 - Nothing here installs third-party software or writes outside the repo,
   except the shim and the PATH entry — both announced, PATH only after "yes".

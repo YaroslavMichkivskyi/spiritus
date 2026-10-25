@@ -15,6 +15,7 @@ Spiritus itself. Tracked in git (drafts too), except `*.local.*` files.
 
 | Draft | What | State |
 |---|---|---|
+| `deployment/` | plan for easy setup: bootstrap, doctor, `setup` / `mcp-setup` spells, MCP catalog, `docs/`, README (`plan.md`) | being implemented |
 
 A draft is **not** part of Spiritus: never follow, summon or cast it unless I
 ask to work on it. Promoting one → `playbooks/self-update.md`.

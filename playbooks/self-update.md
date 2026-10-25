@@ -33,7 +33,8 @@
    | Spiritus's own tool: launcher, custom MCP, library, script | `arsenal/<name>/` | yes |
    | an external service Spiritus can connect to | `arsenal/mcp-servers/<name>.md` (catalog) | yes |
    | which services are connected here, with which accounts | `librarium/services.md` | no |
-   | a new requirement of the machine | a check in `arsenal/spiritus-setup/doctor.py` + `README.md` | yes |
+   | a new requirement of the machine | a check in `arsenal/spiritus-setup/doctor.py` + `README.md` + `docs/getting-started.md` | yes |
+   | documentation for people | `docs/<topic>.md`, linked from `README.md` | yes |
    | shared static resource (image, template, layout) | `assets/` | yes |
    | idea / to-do / experiment about Spiritus itself | `laboratory/` | yes (except `*.local.*`) |
 
@@ -66,7 +67,8 @@
      `AGENTS.md` and an `@` import in root `CLAUDE.md`.
    - New domain → follow the domain anatomy in `domains/AGENTS.md`.
 5. **Update indexes and registries** for everything created / renamed /
-   removed, in the same change.
+   removed, in the same change — and the doc in `docs/` that describes the
+   changed behaviour (commands, setup steps, what a user sees).
 6. **Promoting a draft:** a draft moves from `laboratory/drafts/` to its real
    realm only on my request; then it gets a registry row there and leaves the
    drafts index in `laboratory/AGENTS.md`.
