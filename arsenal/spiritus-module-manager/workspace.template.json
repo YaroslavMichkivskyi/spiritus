@@ -4,7 +4,6 @@
   ],
   "settings": {
     "files.exclude": { "**/.git": true },
-    // personal favorites list lives in .vscfavoriterc (gitignored)
     "favorites.saveSeparated": true,
     "favorites.sortOrder": "MANUAL"
   },

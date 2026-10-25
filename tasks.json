@@ -39,6 +39,10 @@
     "modules:remove": {
       "desc": "delete a module folder, refuses to lose work: <name> [--force]",
       "run": ["{python}", "arsenal/spiritus-module-manager/modules.py", "remove"]
+    },
+    "modules:workspace": {
+      "desc": "rewrite the module folders of spiritus.code-workspace (add / remove do it themselves)",
+      "run": ["{python}", "arsenal/spiritus-module-manager/modules.py", "workspace"]
     }
   }
 }

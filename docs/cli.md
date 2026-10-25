@@ -15,7 +15,7 @@ Built-in tasks (`spiritus list` shows the current set):
 |---|---|
 | `doctor` | check the machine, change nothing |
 | `bootstrap` | re-run setup |
-| `modules:list`, `modules:install <name>`, `modules:add <url> --kind …`, `modules:update`, `modules:status`, `modules:remove <name>`, `modules:sync` | manage modules — see `modules.md` |
+| `modules:list`, `modules:install <name>`, `modules:add <url> --kind …`, `modules:update`, `modules:status`, `modules:remove <name>`, `modules:sync`, `modules:workspace` | manage modules — see `modules.md` |
 
 Help of the tool behind a task: `spiritus run modules --help`,
 `spiritus run modules:install --help`.

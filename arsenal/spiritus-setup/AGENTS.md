@@ -19,7 +19,8 @@ services) is the core spell `spells/setup.md`.
 3. `~/.local/bin` not on PATH → asks, then adds it: Windows — the user `Path`
    in the registry; macOS / Linux — an `export PATH=…` line in the shell rc
    file (`~/.zshrc`, `~/.bashrc` / `~/.bash_profile`, else `~/.profile`).
-4. `arsenal/spiritus-module-manager/modules.local.json` exists → `modules sync`.
+4. `arsenal/spiritus-module-manager/modules.local.json` exists → `modules sync`,
+   else `modules workspace`; either writes `spiritus.code-workspace`.
 5. Prints the next step: start the agent, say "set me up".
 
 Never installs software (git, Python, Node, runtimes) — it only says what's

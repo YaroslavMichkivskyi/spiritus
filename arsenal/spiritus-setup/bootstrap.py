@@ -116,9 +116,13 @@ def ensure_path(assume_yes):
 
 
 def restore_modules():
+    # both commands also write spiritus.code-workspace
+    command = "workspace"
     if MODULES_LOCAL.exists():
         print("restoring modules from modules.local.json", flush=True)
-        subprocess.run([sys.executable, str(MODULES), "sync"], cwd=ROOT)
+        command = "sync"
+    sys.stdout.flush()
+    subprocess.run([sys.executable, str(MODULES), command], cwd=ROOT)
 
 
 def main():

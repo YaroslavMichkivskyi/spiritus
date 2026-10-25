@@ -21,8 +21,19 @@ What you installed is remembered in
 `spiritus run modules:sync` (or `bootstrap`) restores it on a new machine.
 Private repos work with your normal git credentials.
 
-A module folder is a normal git repo: edit, commit and push inside it. VS
-Code shows it as a separate repository in Source Control.
+A module folder is a normal git repo: edit, commit and push inside it.
+
+## VS Code
+
+Open `spiritus.code-workspace` (repo root). It shows `spiritus` first and
+every installed module as a folder of its own, each with its own repository
+in Source Control; inside `spiritus` the module folders are hidden so nothing
+shows twice. The module manager keeps the list in step on every
+install / add / remove; `spiritus run modules:workspace` rewrites it by hand.
+
+The file is yours and gitignored (it's created from
+`arsenal/spiritus-module-manager/workspace.template.json`): add any other
+repo with *File → Add Folder to Workspace…* and it stays there, never pushed.
 
 ## Make your own module
 

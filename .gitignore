@@ -7,7 +7,10 @@
 /*.txt
 *.local.*
 
-# personal VS Code favorites list (Favorites extension, saveSeparated)
+# personal VS Code workspace (written by the module manager from
+# arsenal/spiritus-module-manager/workspace.template.json; my own folders go
+# there too) and favorites list (Favorites extension, saveSeparated)
+/spiritus.code-workspace
 .vscfavoriterc
 
 # per-user registries: what *I* have / use in each realm — never shared,

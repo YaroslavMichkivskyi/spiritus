@@ -5,7 +5,8 @@ A module is a git repo cloned into `daemons/<name>/` or `domains/<name>/`.
 Standard modules are listed in `catalog.json` (tracked); what *I* installed,
 plus my private modules, is in `modules.local.json` (gitignored). Installed
 modules are hidden from the platform repo via `.git/info/exclude`, and their
-row in the realm's `registry.md` is generated from the module's frontmatter.
+row in the realm's `registry.md` is generated from the module's frontmatter,
+and each gets a folder of its own in `spiritus.code-workspace` (gitignored).
 
 Run `python arsenal/spiritus-module-manager/modules.py --help`.
 """
@@ -25,6 +26,8 @@ ROOT = HERE.parents[1]
 CATALOG = HERE / "catalog.json"
 LOCAL = HERE / "modules.local.json"
 EXCLUDE_TAG = "# spiritus-module-manager: installed modules"
+WORKSPACE = ROOT / "spiritus.code-workspace"
+WORKSPACE_TEMPLATE = HERE / "workspace.template.json"
 
 # kind -> realm folder, registry header, frontmatter fields for the row cells
 KINDS = {
@@ -188,6 +191,74 @@ def set_excluded(path, on):
     write_lines(excl, lines)
 
 
+# --- VS Code workspace (platform + one folder per module) --------------------
+
+TRAILING_COMMA = re.compile(r"\s*(?://[^\n]*\n\s*|/\*.*?\*/\s*)*[}\]]", re.S)
+
+
+def load_jsonc(path):
+    """VS Code workspace files are JSONC: comments and trailing commas allowed."""
+    text = path.read_text(encoding="utf-8")
+    out, i, n = [], 0, len(text)
+    while i < n:
+        c = text[i]
+        if c == '"':
+            j = i + 1
+            while j < n and text[j] != '"':
+                j += 2 if text[j] == "\\" else 1
+            out.append(text[i:j + 1])
+            i = j + 1
+        elif text.startswith("//", i):
+            j = text.find("\n", i)
+            i = n if j < 0 else j
+        elif text.startswith("/*", i):
+            j = text.find("*/", i + 2)
+            i = n if j < 0 else j + 2
+        else:
+            if not (c == "," and TRAILING_COMMA.match(text, i + 1)):
+                out.append(c)
+            i += 1
+    return json.loads("".join(out))
+
+
+def sync_workspace(dropped=()):
+    """Root folder first, then every installed module as a folder of its own.
+
+    The file is gitignored: folders and settings I add myself stay as they are;
+    only module folders (and their `files.exclude` lines, which hide them
+    inside the root folder) are rewritten.
+    """
+    if WORKSPACE.exists():
+        try:
+            ws = load_jsonc(WORKSPACE)
+        except ValueError as e:
+            print(f"  ! {WORKSPACE.name} is not valid JSON ({e}) - left as is")
+            return
+    else:
+        ws = json.loads(WORKSPACE_TEMPLATE.read_text(encoding="utf-8"))
+    before = json.dumps(ws, sort_keys=True)
+
+    local = load(LOCAL)["modules"]
+    modules = sorted(rel(module_path(e["kind"], n)) for n, e in local.items()
+                     if module_path(e["kind"], n).exists())
+    managed = set(modules) | set(dropped) | {"."}
+    folders = ws.get("folders", [])
+    by_path = {f.get("path"): f for f in folders}
+    ws["folders"] = ([by_path.get(".") or {"name": "spiritus", "path": "."}]
+                     + [by_path.get(p) or {"name": p.split("/")[-1], "path": p} for p in modules]
+                     + [f for f in folders if f.get("path") not in managed])
+    hidden = ws.setdefault("settings", {}).setdefault("files.exclude", {})
+    for p in dropped:
+        hidden.pop(p, None)
+    for p in modules:
+        hidden[p] = True
+
+    if json.dumps(ws, sort_keys=True) != before or not WORKSPACE.exists():
+        verb = "updated" if WORKSPACE.exists() else "created"
+        save(WORKSPACE, ws)
+        print(f"{verb} {WORKSPACE.name}")
+
+
 # --- repo state ---------------------------------------------------------
 
 def repo_state(path, fetch=False):
@@ -259,6 +330,7 @@ def cmd_install(args):
     local = load(LOCAL)
     local["modules"][args.name] = entry
     save(LOCAL, local)
+    sync_workspace()
     print("done")
 
 
@@ -271,6 +343,7 @@ def cmd_add(args):
     local = load(LOCAL)
     local["modules"][name] = entry
     save(LOCAL, local)
+    sync_workspace()
     print("done")
 
 
@@ -281,7 +354,13 @@ def cmd_sync(args):
         print("all modules from modules.local.json are installed")
     for name in todo:
         clone(name, local[name])
+    sync_workspace()
     print("done")
+
+
+def cmd_workspace(args):
+    sync_workspace()
+    print(f"{WORKSPACE.name}: spiritus + {len(load_jsonc(WORKSPACE)['folders']) - 1} more folder(s)")
 
 
 def cmd_update(args):
@@ -346,6 +425,7 @@ def cmd_remove(args):
     drop_registry_row(entry["kind"], args.name)
     del local["modules"][args.name]
     save(LOCAL, local)
+    sync_workspace(dropped=[rel(path)])
     print(f"removed {args.name}")
 
 
@@ -369,6 +449,7 @@ def main():
     s = sub.add_parser("remove", help="delete a module folder (refuses to lose work)")
     s.add_argument("name")
     s.add_argument("--force", action="store_true")
+    sub.add_parser("workspace", help="rewrite the module folders of spiritus.code-workspace")
     args = p.parse_args()
     try:
         globals()["cmd_" + args.cmd](args)
