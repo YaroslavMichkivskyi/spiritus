@@ -4,6 +4,7 @@
   ],
   "settings": {
     "files.exclude": { "**/.git": true },
+    "scm.alwaysShowRepositories": true,
     "favorites.saveSeparated": true,
     "favorites.sortOrder": "MANUAL"
   },
