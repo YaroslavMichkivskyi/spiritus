@@ -1,14 +1,15 @@
-# spiritus-module-manager — daemons and domains as their own git repos
+# spiritus-module-manager — daemons, domains and tools as their own git repos
 
-A **module** is a daemon or a domain that lives in its own git repo and is
-cloned into `daemons/<name>/` or `domains/<name>/`. The platform repo never
-tracks it; the manager hides it via `.git/info/exclude` and writes its row
-into the realm's `registry.md`.
+A **module** is a daemon, a domain or a tool that lives in its own git repo
+and is cloned into `daemons/<name>/`, `domains/<name>/` or `arsenal/<name>/`.
+The platform repo never tracks it; the manager hides it via
+`.git/info/exclude` and writes its row into the realm's `registry.md`
+(`arsenal/registry.md` for tools).
 
 | File | In git | What |
 |---|---|---|
 | `modules.py` | yes | the manager (Python 3, stdlib + `git`) |
-| `catalog.json` | yes | **standard** modules anyone can install: `{"modules": {"<name>": {"kind": "daemon"\|"domain", "url": "…", "about": "…"}}}` |
+| `catalog.json` | yes | **standard** modules anyone can install: `{"modules": {"<name>": {"kind": "daemon"\|"domain"\|"tool", "url": "…", "about": "…"}}}` |
 | `modules.local.json` | no (`*.local.*`) | what **I** installed — catalog ones and my private ones (`url`, `kind`, optional `ref`); `sync` restores them on a new machine |
 | `workspace.template.json` | yes | base of `spiritus.code-workspace` (repo root, gitignored): the platform folder + generic settings |
 
@@ -21,7 +22,7 @@ Run from any folder: `spiritus run modules:<command> [args]` (root
 |---|---|
 | `list` | catalog + my modules, installed or not |
 | `install <name> [--ref R]` | clone a standard module from `catalog.json` |
-| `add <url> --kind daemon\|domain [--name N] [--ref R]` | clone my own (private) module |
+| `add <url> --kind daemon\|domain\|tool [--name N] [--ref R]` | clone my own (private) module |
 | `sync` | clone every module from `modules.local.json` that is missing |
 | `update [name]` | `git pull --ff-only` (or checkout the pinned `ref`), refresh registry rows |
 | `status [--fetch]` | every daemon / domain folder: module / unmanaged repo / in platform repo / local folder, with branch, changes, to push / pull |
@@ -56,6 +57,14 @@ works-for: <domains/... it serves>
 kind: domain
 about: <what life area — one line>
 when: <enter when — one line>
+---
+```
+
+```
+---
+kind: tool
+about: <what the tool is / gives — one line>
+when: <use when — one line>
 ---
 ```
 

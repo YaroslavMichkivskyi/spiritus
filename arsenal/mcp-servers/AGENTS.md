@@ -12,6 +12,8 @@ Connecting one → core spell `spells/mcp-setup.md`.
 | `google.md` | Gmail, Drive, Calendar, Sheets, Docs — several Google accounts by alias | Node.js, own Google Cloud OAuth client |
 | `github.md` | repos, issues, PRs — one server entry per GitHub account | a GitHub personal access token per account |
 | `linkedin.md` | job search, job details, profiles, companies (unofficial, browser session) | uv |
+| `djinni.md` | my Djinni candidate account (profile, inbox, conversations) + public job search — own server `arsenal/djinni-mcp/` | Python 3, Djinni login or cookies in `.env` |
+| `dou.md` | my DOU account (profile, account pages) + public vacancy search — own server `arsenal/dou-mcp/` | Python 3, DOU login or cookies in `.env` |
 | `blender.md` | drive a local Blender: inspect / edit the scene, run `bpy`, viewport screenshots | uv, Blender + its addon |
 | `browser.md` | browser automation in my own Chrome (runtime extension, not an MCP config entry) | Chrome + the runtime's browser extension |
 

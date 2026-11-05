@@ -35,6 +35,9 @@ domains/**
 daemons/*/*
 !daemons/*/AGENTS.md
 
+# arsenal tools' local state (cookies, ledgers, caches) — never shared
+arsenal/*/.state/
+
 # Python / Node build artefacts anywhere
 __pycache__/
 *.egg-info/

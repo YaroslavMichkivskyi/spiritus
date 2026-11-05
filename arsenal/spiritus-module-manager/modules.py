@@ -1,7 +1,8 @@
 #!/usr/bin/env python3
-"""spiritus-module-manager: daemons and domains kept in their own git repos.
+"""spiritus-module-manager: daemons, domains and tools kept in their own git repos.
 
-A module is a git repo cloned into `daemons/<name>/` or `domains/<name>/`.
+A module is a git repo cloned into `daemons/<name>/`, `domains/<name>/` or
+`arsenal/<name>/` (a tool, e.g. a custom MCP server).
 Standard modules are listed in `catalog.json` (tracked); what *I* installed,
 plus my private modules, is in `modules.local.json` (gitignored). Installed
 modules are hidden from the platform repo via `.git/info/exclude`, and their
@@ -35,6 +36,10 @@ KINDS = {
                "fields": ["when", "works-for"]},
     "domain": {"dir": "domains", "header": ["Domain", "About", "Enter when"],
                "fields": ["about", "when"]},
+    # arsenal tools in their own repos (e.g. custom MCP servers); built-in
+    # arsenal tools are tracked by the platform and listed in arsenal/AGENTS.md
+    "tool": {"dir": "arsenal", "header": ["Tool", "About", "Use when"],
+             "fields": ["about", "when"]},
 }
 NAME_RE = re.compile(r"^[a-z0-9][a-z0-9-]*$")
 
@@ -397,6 +402,8 @@ def cmd_status(args):
             print("  (empty)")
         for path in dirs:
             name = path.name
+            if kind == "tool" and not (path / ".git").exists():
+                continue  # built-in arsenal tools are not modules
             if (path / ".git").exists():
                 kind_label = "module" if name in local else "repo (not managed)"
                 print(f"  {name:26} {kind_label:20} {describe(repo_state(path, args.fetch))}")
@@ -444,7 +451,7 @@ def main():
     sub.add_parser("sync", help="clone every module from modules.local.json that is missing")
     s = sub.add_parser("update", help="pull one / all modules, refresh their registry rows")
     s.add_argument("name", nargs="?")
-    s = sub.add_parser("status", help="every daemon / domain folder and its git state")
+    s = sub.add_parser("status", help="every daemon / domain folder and tool module, with its git state")
     s.add_argument("--fetch", action="store_true", help="fetch first (network)")
     s = sub.add_parser("remove", help="delete a module folder (refuses to lose work)")
     s.add_argument("name")

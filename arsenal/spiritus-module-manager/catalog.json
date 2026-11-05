@@ -1,3 +1,14 @@
 {
-  "modules": {}
+  "modules": {
+    "djinni-mcp": {
+      "kind": "tool",
+      "url": "https://github.com/YaroslavMichkivskyi/djinni-mcp.git",
+      "about": "MCP server: your Djinni candidate account (profile, inbox, conversations) + public job search; Python stdlib"
+    },
+    "dou-mcp": {
+      "kind": "tool",
+      "url": "https://github.com/YaroslavMichkivskyi/dou-mcp.git",
+      "about": "MCP server: your DOU account (profile, account pages) + public vacancy search; Python stdlib"
+    }
+  }
 }

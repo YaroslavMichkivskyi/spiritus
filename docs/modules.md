@@ -1,8 +1,10 @@
 # Modules
 
-A **module** is a daemon or a domain kept in its own git repo and cloned into
-`daemons/<name>/` or `domains/<name>/`. The platform repo ignores it (via
-`.git/info/exclude`), and the module manager writes its row into your registry.
+A **module** is a daemon, a domain or a tool (e.g. a custom MCP server) kept
+in its own git repo and cloned into `daemons/<name>/`, `domains/<name>/` or
+`arsenal/<name>/`. The platform repo ignores it (via `.git/info/exclude`), and
+the module manager writes its row into your registry (`arsenal/registry.md`
+for tools).
 
 ## Use modules
 
@@ -11,6 +13,7 @@ spiritus run modules:list                                # catalog + yours
 spiritus run modules:install <name>                      # a standard module
 spiritus run modules:add <git-url> --kind daemon         # your own / private one
 spiritus run modules:add <git-url> --kind domain --name career --ref v1.2
+spiritus run modules:add <git-url> --kind tool           # an arsenal tool, e.g. an MCP server
 spiritus run modules:status                              # git state of every daemon / domain folder
 spiritus run modules:update [name]                       # pull
 spiritus run modules:remove <name>                       # refuses if work would be lost
@@ -61,6 +64,14 @@ works-for: <domains/... it serves>
 kind: domain
 about: <which area of life — one line>
 when: <when to enter it — one line>
+---
+```
+
+```
+---
+kind: tool
+about: <what it is / gives — one line>
+when: <when to use it — one line>
 ---
 ```
 
