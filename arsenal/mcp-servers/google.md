@@ -51,10 +51,14 @@ env = { GOOGLE_CLIENT_ID = "<ID>", GOOGLE_CLIENT_SECRET = "<SECRET>", GOOGLE_ACC
 ## Authorise
 
 Once per account, from the repo root (reads `.env` in the cwd):
-`npx mcp-google-multi auth --account <alias>` — opens a browser; I run it myself.
+`npx mcp-google-multi auth --account <alias>` — opens a browser; Spiritus
+runs it (in the background), I sign in to that account in the browser.
 
 ## Rules
 
 - Pick the account by purpose (`librarium/services.md` → which alias is for what), not by habit.
+- An account I named (or the domain prescribes) fails auth (`invalid_grant`,
+  `needs_reauth`) → re-authorise **that** account (command under Authorise,
+  run it yourself); never fall back to other accounts or connectors.
 - Reading mail / files is free; sending, creating events, editing documents — approval gate.
 - Mail contents stay local: summaries and drafts go to the domain the work belongs to.
