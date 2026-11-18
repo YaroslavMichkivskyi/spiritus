@@ -15,7 +15,7 @@ spiritus run modules:add <git-url> --kind daemon         # your own / private on
 spiritus run modules:add <git-url> --kind domain --name career --ref v1.2
 spiritus run modules:add <git-url> --kind tool           # an arsenal tool, e.g. an MCP server
 spiritus run modules:status                              # git state of every daemon / domain folder
-spiritus run modules:update [name]                       # pull
+spiritus run modules:update [name]                       # pull (a --ref branch too; a tag / commit stays)
 spiritus run modules:remove <name>                       # refuses if work would be lost
 ```
 

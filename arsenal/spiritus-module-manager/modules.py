@@ -51,11 +51,18 @@ class Fail(Exception):
 # --- helpers -------------------------------------------------------------
 
 def git(*args, cwd=ROOT, check=True):
+    # every git call goes through here: always utf-8, never the locale default
+    # (cp1251 / cp1252 on Windows can't decode git's output)
     res = subprocess.run(["git", *args], cwd=cwd, capture_output=True,
                          text=True, encoding="utf-8", errors="replace")
     if check and res.returncode != 0:
         raise Fail(f"git {' '.join(args)} failed:\n{res.stderr.strip()}")
     return res.stdout.strip()
+
+
+def is_repo(path):
+    # without its own .git, git in a module folder silently works on the platform repo
+    return (path / ".git").exists()
 
 
 def load(path):
@@ -302,7 +309,12 @@ def clone(name, entry):
     print(f"cloning {entry['url']} -> {rel(path)}")
     git("clone", "--quiet", entry["url"], str(path))
     if entry.get("ref"):
-        git("checkout", "--quiet", entry["ref"], cwd=path)
+        try:
+            git("checkout", "--quiet", entry["ref"], cwd=path)
+        except Fail:
+            # a bad ref must not leave a half-installed folder that blocks a retry
+            rmtree(path)
+            raise
     set_excluded(path, True)
     set_registry_row(entry["kind"], name, path)
 
@@ -357,9 +369,16 @@ def cmd_sync(args):
     todo = [n for n, e in local.items() if not module_path(e["kind"], n).exists()]
     if not todo:
         print("all modules from modules.local.json are installed")
+    failed = []
     for name in todo:
-        clone(name, local[name])
+        try:
+            clone(name, local[name])
+        except Fail as e:  # one bad module must not stop the others
+            print(f"{name}: NOT installed - {e}")
+            failed.append(name)
     sync_workspace()
+    if failed:
+        raise Fail(f"not installed: {', '.join(failed)}")
     print("done")
 
 
@@ -368,27 +387,46 @@ def cmd_workspace(args):
     print(f"{WORKSPACE.name}: spiritus + {len(load_jsonc(WORKSPACE)['folders']) - 1} more folder(s)")
 
 
+def update_one(path, entry):
+    """Bring one module up to date; returns what happened, raises Fail if it couldn't."""
+    if not is_repo(path):
+        raise Fail(f"{rel(path)} has no .git (half-removed?) - `remove --force` it, then `sync`")
+    before = git("rev-parse", "HEAD", cwd=path)
+    git("fetch", "--quiet", cwd=path)
+    if entry.get("ref"):
+        git("checkout", "--quiet", entry["ref"], cwd=path)
+    # a checked-out branch doesn't move by itself: fast-forward it to its upstream;
+    # a pinned tag or commit (detached HEAD) stays where it is
+    if git("symbolic-ref", "-q", "HEAD", cwd=path, check=False):
+        git("merge", "--ff-only", "--quiet", "@{upstream}", cwd=path)
+    elif not entry.get("ref"):
+        raise Fail("detached HEAD but no pinned ref - check out a branch first")
+    after = git("rev-parse", "HEAD", cwd=path)
+    where = f"at {entry['ref']}, " if entry.get("ref") else ""
+    return where + ("updated" if after != before else "already up to date")
+
+
 def cmd_update(args):
     local = load(LOCAL)["modules"]
+    if args.name and args.name not in local:
+        raise Fail(f"'{args.name}' is not installed by the module manager")
     names = [args.name] if args.name else sorted(local)
+    failed = []
     for name in names:
-        if name not in local:
-            raise Fail(f"'{name}' is not installed by the module manager")
         entry = local[name]
         path = module_path(entry["kind"], name)
         if not path.exists():
             print(f"{name}: not on disk - run `sync`")
             continue
-        if entry.get("ref"):
-            git("fetch", "--quiet", cwd=path)
-            git("checkout", "--quiet", entry["ref"], cwd=path)
-            print(f"{name}: at {entry['ref']}")
-        else:
-            res = subprocess.run(["git", "pull", "--ff-only", "--quiet"], cwd=path,
-                                 capture_output=True, text=True)
-            print(f"{name}: " + ("updated" if res.returncode == 0
-                                 else "NOT updated - " + res.stderr.strip()))
+        try:  # one failing module must not stop the others
+            print(f"{name}: {update_one(path, entry)}")
+        except Fail as e:
+            print(f"{name}: NOT updated - {e}")
+            failed.append(name)
+            continue
         set_registry_row(entry["kind"], name, path)
+    if failed:
+        raise Fail(f"not updated: {', '.join(failed)}")
 
 
 def cmd_status(args):
@@ -404,7 +442,7 @@ def cmd_status(args):
             name = path.name
             if kind == "tool" and not (path / ".git").exists():
                 continue  # built-in arsenal tools are not modules
-            if (path / ".git").exists():
+            if is_repo(path):
                 kind_label = "module" if name in local else "repo (not managed)"
                 print(f"  {name:26} {kind_label:20} {describe(repo_state(path, args.fetch))}")
             elif any(t.startswith(rel(path) + "/") for t in tracked):
@@ -419,7 +457,13 @@ def cmd_remove(args):
     if not entry:
         raise Fail(f"'{args.name}' is not installed by the module manager")
     path = module_path(entry["kind"], args.name)
-    if path.exists():
+    if path.exists() and not is_repo(path):
+        # no .git: git would report the platform repo's state, not the module's
+        if not args.force:
+            raise Fail(f"{rel(path)} has no .git, its work can't be checked - "
+                       f"look inside, then pass --force to delete it")
+        rmtree(path)
+    elif path.exists():
         state = repo_state(path)
         # commits reachable from any local branch / HEAD but from no remote
         unpushed = int(git("rev-list", "--count", "HEAD", "--branches", "--not",

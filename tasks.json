@@ -21,7 +21,7 @@
       "run": ["{python}", "arsenal/spiritus-module-manager/modules.py", "install"]
     },
     "modules:add": {
-      "desc": "add my own module by git URL: <url> --kind daemon|domain [--name N] [--ref R]",
+      "desc": "add my own module by git URL: <url> --kind daemon|domain|tool [--name N] [--ref R]",
       "run": ["{python}", "arsenal/spiritus-module-manager/modules.py", "add"]
     },
     "modules:sync": {

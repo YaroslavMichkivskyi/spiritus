@@ -24,7 +24,7 @@ Run from any folder: `spiritus run modules:<command> [args]` (root
 | `install <name> [--ref R]` | clone a standard module from `catalog.json` |
 | `add <url> --kind daemon\|domain\|tool [--name N] [--ref R]` | clone my own (private) module |
 | `sync` | clone every module from `modules.local.json` that is missing |
-| `update [name]` | `git pull --ff-only` (or checkout the pinned `ref`), refresh registry rows |
+| `update [name]` | fetch, checkout the pinned `ref` if any, fast-forward a branch (a pinned tag / commit stays); says `updated` / `already up to date` / `NOT updated - <why>`, refreshes registry rows |
 | `status [--fetch]` | every daemon / domain folder: module / unmanaged repo / in platform repo / local folder, with branch, changes, to push / pull |
 | `remove <name> [--force]` | delete the folder, its exclude line, registry row and config entry; refuses while there are uncommitted or unpushed changes |
 | `workspace` | rewrite the module folders of `spiritus.code-workspace` (created from the template if missing) |

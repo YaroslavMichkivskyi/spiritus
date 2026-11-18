@@ -122,7 +122,11 @@ def restore_modules():
         print("restoring modules from modules.local.json", flush=True)
         command = "sync"
     sys.stdout.flush()
-    subprocess.run([sys.executable, str(MODULES), command], cwd=ROOT)
+    res = subprocess.run([sys.executable, str(MODULES), command], cwd=ROOT)
+    if res.returncode != 0:
+        print(f"  ! modules {command} failed (see above) - fix it, then "
+              f"`spiritus run modules:{command}`")
+    return res.returncode == 0
 
 
 def main():
@@ -140,7 +144,7 @@ def main():
     print("\n2. `spiritus` command")
     if install_shim(args.yes):
         ensure_path(args.yes)
-    restore_modules()
+    rest_ok = restore_modules() and rest_ok
 
     print("\n3. result")
     doctor.report([doctor.check_cli])
