@@ -9,6 +9,16 @@
       "kind": "tool",
       "url": "https://github.com/YaroslavMichkivskyi/dou-mcp.git",
       "about": "MCP server: your DOU account (profile, account pages) + public vacancy search; Python stdlib"
+    },
+    "rozetka-mcp": {
+      "kind": "tool",
+      "url": "https://github.com/YaroslavMichkivskyi/rozetka-mcp.git",
+      "about": "MCP server: Rozetka catalog + your buyer account (bonuses, orders), cart add / remove; Python + curl_cffi, browser only for login"
+    },
+    "alza-mcp": {
+      "kind": "tool",
+      "url": "https://github.com/YaroslavMichkivskyi/alza-mcp.git",
+      "about": "MCP server: Alza.cz catalog with your prices (AlzaPlus+, ISIC) + orders, cart add / remove; Python + curl_cffi, browser only for login"
     }
   }
 }

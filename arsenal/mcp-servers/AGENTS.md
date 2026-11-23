@@ -14,6 +14,8 @@ Connecting one → core spell `spells/mcp-setup.md`.
 | `linkedin.md` | job search, job details, profiles, companies (unofficial, browser session) | uv |
 | `djinni.md` | my Djinni candidate account (profile, inbox, conversations) + public job search — own server `arsenal/djinni-mcp/` | Python 3, Djinni login or cookies in `.env` |
 | `dou.md` | my DOU account (profile, account pages) + public vacancy search — own server `arsenal/dou-mcp/` | Python 3, DOU login or cookies in `.env` |
+| `rozetka.md` | Rozetka catalog + my buyer account (bonuses, orders, cart add / remove) — own server `arsenal/rozetka-mcp/` | Python 3, Chrome / Edge for a one-time login window |
+| `alza.md` | Alza.cz catalog with my prices (AlzaPlus+ / ISIC) + my orders, cart add / remove — own server `arsenal/alza-mcp/` | Python 3, Chrome / Edge for a one-time login window |
 | `blender.md` | drive a local Blender: inspect / edit the scene, run `bpy`, viewport screenshots | uv, Blender + its addon |
 | `browser.md` | browser automation in my own Chrome (runtime extension, not an MCP config entry) | Chrome + the runtime's browser extension |
 
